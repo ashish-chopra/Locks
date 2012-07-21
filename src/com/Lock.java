@@ -56,10 +56,10 @@ public class Lock {
 	 */
 	public void turnClockwise(int units) {
 		
-		int a = driveCam.testMove(units, rearWheel.getFly());
-		int b = rearWheel.testMove(a, middleWheel.getFly());
-		int c = middleWheel.testMove(b, frontWheel.getFly());
-		frontWheel.testMove(c, 0);
+		int a = driveCam.turnClockwise(units, rearWheel.getFly());
+		int b = rearWheel.turnClockwise(a, middleWheel.getFly());
+		int c = middleWheel.turnClockwise(b, frontWheel.getFly());
+				frontWheel.turnClockwise(c, 0);
 		
 	}
 	
@@ -69,12 +69,15 @@ public class Lock {
 	 * @param units a positive integer as number of units
 	 */
 	public void turnAntiClockwise(int units) {
-		int a = driveCam.testAntiMove(units, rearWheel.getFly());
-		int b = rearWheel.testAntiMove(a, middleWheel.getFly());
-		int c = middleWheel.testAntiMove(b, frontWheel.getFly());
-		frontWheel.testAntiMove(c, 0);
+		int a = driveCam.turnAntiClockwise(units, rearWheel.getFly());
+		int b = rearWheel.turnAntiClockwise(a, middleWheel.getFly());
+		int c = middleWheel.turnAntiClockwise(b, frontWheel.getFly());
+				frontWheel.turnAntiClockwise(c, 0);
 	}
 	
+	public String toString() {
+		return "Drive Cam= " + driveCam.toString() + "\nrearWheel= " + rearWheel.toString() + "\nmidWheel= " + middleWheel.toString() + "\nfrontWheel= " + frontWheel.toString(); 
+	}
 	private Wheel rearWheel; 		/* represents the rear wheel of the lock */
 	private Wheel middleWheel;      /* represents the middle wheel of the lock */
 	private Wheel frontWheel;       /* represents the front wheel of the lock */

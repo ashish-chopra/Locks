@@ -57,7 +57,7 @@ public class Wheel {
 		return (getNotch() == NOTCH_RESET_POSITION);
 	}
 	
-	public void move(int delta) {
+	public void clockwiseMove(int delta) {
 		delta = delta % 20;
 		pin = pin + delta;
 		fly = fly + delta;
@@ -67,27 +67,53 @@ public class Wheel {
 		notch = notch < 20 ? notch : notch - 20;
 	}
 	
-	public int testMove(int distance, int fly_pos) {
+	public void antiClockwiseMove(int delta) {
+		delta = delta % 20;
+		pin = pin - delta;
+		fly = fly - delta;
+		notch = notch - delta;
+		pin = pin < 0 ? 20 - pin : pin;
+		fly = fly < 0 ? 20 - fly : fly;
+		notch = notch < 0 ? 20 - notch : notch;
+	}
+	
+	public int turnClockwise(int distance, int fly_pos) {
 		int new_distance = 0;
 		int start_pos = getPin();
 		int gap = cyclicDifference(start_pos, fly_pos);
 		if (distance >= gap) {
 			new_distance = distance - gap + 1;
 		}
-		move(distance);
+		clockwiseMove(distance);
 		return new_distance;
 	}
 	
-	public int cyclicDifference(int a, int b) {
-		int c = b -a;
+	public int turnAntiClockwise(int distance, int fly_pos) {
+		int new_distance = 0;
+		int start_pos = getPin();
+		int gap = antiClockwiseDifference(start_pos, fly_pos);
+		if (distance >= gap) {
+			new_distance = distance - gap + 1;
+		}
+		antiClockwiseMove(distance);
+		return new_distance;
+	}
+	
+	private int cyclicDifference(int a, int b) {
+		int c = b - a;
 		return c < 0 ? 20 + c : c;
 	}
 	
-	public int testAntiMove(int distance, int fly_pos) {
-		distance = 20 - distance;
-		return 20 - testMove(distance, fly_pos);
-	}
+	private int antiClockwiseDifference(int a, int b) {
+		int c = b - a;
+		return c < 0 ?  -c : 20 - c;
+	} 
+	
 	private int pin;		/* Drive pin location in units */
 	private int notch;      /* Notch location in units */
-	private int fly;        /* Wheel fly location in units */
+	private int fly;   		/* Wheel fly location in units */
+	
+	public String toString() {
+		return "pin : " + pin + "fly : " + fly + "notch : " + notch;
+	}
 }
