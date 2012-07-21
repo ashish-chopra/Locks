@@ -1,5 +1,7 @@
 package tests;
 
+import com.Lock;
+
 /*
  *  File: LockTest.java
  *  Date: 12 July, 2012
@@ -10,11 +12,21 @@ package tests;
  *   
  */
 
-
 public class LockTest {
 
+	public static void main(String[] args) {
+		
+		System.out.println("Testing Lock...");
+		testIsLocked();
+		testTurnClockWise();
+		testTurnAntiClockWise();
+		System.out.println("All tests passed!! Woohoo..");
+	}
+	
 	private static void testIsLocked() {
 		
+		Lock lock = new Lock(13, 3, 5, 4, 12, 2);
+		assert (!lock.isLocked());  // lock is unlocked initially
 		
 	}
 	private static void testTurnClockWise() {
@@ -24,13 +36,5 @@ public class LockTest {
 	
 	private static void testTurnAntiClockWise() {
 		
-	}
-	public static void main(String[] args) {
-		
-		System.out.println("Testing Lock...");
-		testIsLocked();
-		testTurnClockWise();
-		testTurnAntiClockWise();
-		System.out.println("All tests passed!! Woohoo..");
 	}
 }

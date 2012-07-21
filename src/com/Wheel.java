@@ -31,26 +31,30 @@ public class Wheel {
 	}
 	
 	public int getPin() {
-		return 0;
+		return this.pin;
 	}
 	public void setPin(int p) {
-		
+		this.pin = p;
 	}
 	
 	public int getNotch() {
-		return 0;
+		return this.notch;
 	}
 	
 	public void setNotch(int n) {
-		
+		this.notch = n;
 	}
 	
 	public int getFly() {
-		return 0;
+		return this.fly;
 	}
 	
 	public void setFly(int f) {
-		
+		this.fly = f;
+	}
+	
+	public boolean isOpen() {
+		return (getNotch() == NOTCH_RESET_POSITION);
 	}
 	
 	private int pin;		/* Drive pin location in units */

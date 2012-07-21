@@ -36,22 +36,17 @@ public class Lock {
 		rearWheel = new Wheel(rearPin, rearFly);
 		middleWheel = new Wheel(middlePin, middleFly);
 		frontWheel = new Wheel(frontPin, frontFly);
-		driveCamPin = Wheel.NOTCH_RESET_POSITION;
+		driveCam = new Wheel(0, 0);
+		
 	}
 	
 	/**
-	 * returns <code>true</code> if the lock object is locked.
-	 * @return <code>true</code> if the lock is locked.
+	 * returns <code>true</code> if the lock is locked.
+	 * @return <code>true</code> if the lock is locked, 
+	 * <code>false</code> otherwise.
 	 */
 	public boolean isLocked() {
-		
-		if (driveCamPin == Wheel.NOTCH_RESET_POSITION && 
-			rearWheel.getNotch() == Wheel.NOTCH_RESET_POSITION && 
-			middleWheel.getNotch() == Wheel.NOTCH_RESET_POSITION && 
-			frontWheel.getNotch() == Wheel.NOTCH_RESET_POSITION) {
-			return false;
-		}
-		return true;
+		return !(rearWheel.isOpen() && middleWheel.isOpen() && frontWheel.isOpen());
 	}
 	
 	/**
@@ -60,7 +55,6 @@ public class Lock {
 	 * @param units a positive <code>int</code> as number of units.
 	 */
 	public void turnClockwise(int units) {
-		assert (units >= 0);
 		
 	}
 	
@@ -76,5 +70,5 @@ public class Lock {
 	private Wheel rearWheel; 		/* represents the rear wheel of the lock */
 	private Wheel middleWheel;      /* represents the middle wheel of the lock */
 	private Wheel frontWheel;       /* represents the front wheel of the lock */
-	private int driveCamPin; 		/* a drive cam which starts help in turning wheels */
+	private Wheel driveCam; 		/* a drive cam connected to dial, helps in turning wheels */
 }
