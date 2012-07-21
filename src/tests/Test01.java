@@ -17,18 +17,19 @@ import com.Lock;
 
       lock.turnClockwise (1);
       assert (!lock.isLocked());
+      System.out.println("here");
       lock.turnAntiClockwise (1);
 
       // back to initial state
       assert (!lock.isLocked());
-
+     
       lock.turnClockwise (4);
       assert (!lock.isLocked()); 
       lock.turnAntiClockwise (4);
 
       // back to initial state
       assert (!lock.isLocked());
-
+      
       lock.turnClockwise (5);
       assert (lock.isLocked());
       lock.turnAntiClockwise (5);

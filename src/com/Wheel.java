@@ -57,6 +57,36 @@ public class Wheel {
 		return (getNotch() == NOTCH_RESET_POSITION);
 	}
 	
+	public void move(int delta) {
+		delta = delta % 20;
+		pin = pin + delta;
+		fly = fly + delta;
+		notch = notch + delta;
+		pin = pin < 20 ? pin : pin - 20;
+		fly = fly < 20 ? fly : fly - 20;
+		notch = notch < 20 ? notch : notch - 20;
+	}
+	
+	public int testMove(int distance, int fly_pos) {
+		int new_distance = 0;
+		int start_pos = getPin();
+		int gap = cyclicDifference(start_pos, fly_pos);
+		if (distance >= gap) {
+			new_distance = distance - gap + 1;
+		}
+		move(distance);
+		return new_distance;
+	}
+	
+	public int cyclicDifference(int a, int b) {
+		int c = b -a;
+		return c < 0 ? 20 + c : c;
+	}
+	
+	public int testAntiMove(int distance, int fly_pos) {
+		distance = 20 - distance;
+		return 20 - testMove(distance, fly_pos);
+	}
 	private int pin;		/* Drive pin location in units */
 	private int notch;      /* Notch location in units */
 	private int fly;        /* Wheel fly location in units */

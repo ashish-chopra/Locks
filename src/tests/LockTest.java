@@ -30,8 +30,11 @@ public class LockTest {
 		
 	}
 	private static void testTurnClockWise() {
+		System.out.println("lock created....");
+		Lock lock = new Lock(13, 3, 5, 4, 12, 2);
+		assert (!lock.isLocked());  // lock is unlocked initially
 		
-	
+		lock.turnClockwise(5);
 	}
 	
 	private static void testTurnAntiClockWise() {

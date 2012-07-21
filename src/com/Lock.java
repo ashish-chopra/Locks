@@ -56,6 +56,11 @@ public class Lock {
 	 */
 	public void turnClockwise(int units) {
 		
+		int a = driveCam.testMove(units, rearWheel.getFly());
+		int b = rearWheel.testMove(a, middleWheel.getFly());
+		int c = middleWheel.testMove(b, frontWheel.getFly());
+		frontWheel.testMove(c, 0);
+		
 	}
 	
 	/**
@@ -64,7 +69,10 @@ public class Lock {
 	 * @param units a positive integer as number of units
 	 */
 	public void turnAntiClockwise(int units) {
-		
+		int a = driveCam.testAntiMove(units, rearWheel.getFly());
+		int b = rearWheel.testAntiMove(a, middleWheel.getFly());
+		int c = middleWheel.testAntiMove(b, frontWheel.getFly());
+		frontWheel.testAntiMove(c, 0);
 	}
 	
 	private Wheel rearWheel; 		/* represents the rear wheel of the lock */
