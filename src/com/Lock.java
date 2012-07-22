@@ -1,4 +1,3 @@
-package com;
 /*
  *  File : Lock.java
  *  Date: 12 July, 2012
@@ -7,6 +6,7 @@ package com;
  *  This code is the solution to design task 02 given in the class.
  */
 
+package com;
 /**
  * Lock class is a representation of combinations lock design 
  * which is used for 100 of years. This Lock consists of three wheels, 
@@ -56,6 +56,7 @@ public class Lock {
 	 */
 	public void turnClockwise(int units) {
 		
+		if (units < 0) return;
 		int a = driveCam.turnClockwise(units, rearWheel.getFly());
 		int b = rearWheel.turnClockwise(a, middleWheel.getFly());
 		int c = middleWheel.turnClockwise(b, frontWheel.getFly());
@@ -69,17 +70,34 @@ public class Lock {
 	 * @param units a positive integer as number of units
 	 */
 	public void turnAntiClockwise(int units) {
+		if (units < 0) return;
 		int a = driveCam.turnAntiClockwise(units, rearWheel.getFly());
 		int b = rearWheel.turnAntiClockwise(a, middleWheel.getFly());
 		int c = middleWheel.turnAntiClockwise(b, frontWheel.getFly());
 				frontWheel.turnAntiClockwise(c, 0);
 	}
 	
-	public String toString() {
-		return "Drive Cam= " + driveCam.toString() + "\nrearWheel= " + rearWheel.toString() + "\nmidWheel= " + middleWheel.toString() + "\nfrontWheel= " + frontWheel.toString(); 
+	/*
+	 *  returns the string representation of the state of a wheel 
+	 *  based on the index position provided.
+	 *  This function is only written for unit testing purpose to test
+	 *  the intermediate state comparisons.
+	 */
+	public String getWheelPosition(int index) {
+		if (index == 0)
+			return driveCam.toString();
+		else if (index == 1)
+			return rearWheel.toString();
+		else if (index == 2)
+			return middleWheel.toString();
+		else if (index == 3)
+			return frontWheel.toString();
+		return "";
 	}
+	
 	private Wheel rearWheel; 		/* represents the rear wheel of the lock */
 	private Wheel middleWheel;      /* represents the middle wheel of the lock */
 	private Wheel frontWheel;       /* represents the front wheel of the lock */
 	private Wheel driveCam; 		/* a drive cam connected to dial, helps in turning wheels */
+	
 }

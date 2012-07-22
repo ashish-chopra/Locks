@@ -30,57 +30,54 @@ public class Wheel {
 		this.notch = NOTCH_RESET_POSITION;
 	}
 	
-	public int getPin() {
-		return this.pin;
-	}
-	public void setPin(int p) {
-		this.pin = p;
-	}
-	
+	/**
+	 * gets the current position of the notch between 0-19.
+	 * @return notch value as integer 
+	 */
 	public int getNotch() {
-		return this.notch;
+		return notch;
 	}
 	
-	public void setNotch(int n) {
-		this.notch = n;
+	/**
+	 * gets the current position of the pin between 0-19.
+	 * @return pin value as integer
+	 */
+	public int getPin() {
+		return pin;
 	}
 	
+	/**
+	 * gets the current position of fly between 0-19.
+	 * @return fly value as integer.
+	 */
 	public int getFly() {
-		return this.fly;
+		return fly;
 	}
 	
-	public void setFly(int f) {
-		this.fly = f;
-	}
-	
+	/**
+	 * returns true if the notch of the wheel is at 0 position.
+	 * @return true if notch is at 0 position, false otherwise.
+	 */
 	public boolean isOpen() {
 		return (getNotch() == NOTCH_RESET_POSITION);
 	}
 	
-	public void clockwiseMove(int delta) {
-		delta = delta % 20;
-		pin = pin + delta;
-		fly = fly + delta;
-		notch = notch + delta;
-		pin = pin < 20 ? pin : pin - 20;
-		fly = fly < 20 ? fly : fly - 20;
-		notch = notch < 20 ? notch : notch - 20;
-	}
-	
-	public void antiClockwiseMove(int delta) {
-		delta = delta % 20;
-		pin = pin - delta;
-		fly = fly - delta;
-		notch = notch - delta;
-		pin = pin < 0 ? 20 - pin : pin;
-		fly = fly < 0 ? 20 - fly : fly;
-		notch = notch < 0 ? 20 - notch : notch;
-	}
-	
+
+	/**
+	 * turns the wheel in clockwise direction by the given 
+	 * distance in units. It also calculates the cascaded distance
+	 * by which another wheel needs to be moved in same direction.
+	 * 
+	 * @param distance distance to move as integer
+	 * @param fly_pos  fly value of another wheel whose distance 
+	 * 		  needs to be calculated
+	 * @return distance in units for other wheel to be moved in cascade
+	 * 		   fashion.
+	 */
 	public int turnClockwise(int distance, int fly_pos) {
 		int new_distance = 0;
 		int start_pos = getPin();
-		int gap = cyclicDifference(start_pos, fly_pos);
+		int gap = clockwiseDifference(start_pos, fly_pos);
 		if (distance >= gap) {
 			new_distance = distance - gap + 1;
 		}
@@ -88,6 +85,17 @@ public class Wheel {
 		return new_distance;
 	}
 	
+	/**
+	 * turns the wheel in anti-clockwise direction by the given 
+	 * distance in units. It also calculates the cascaded distance
+	 * by which another wheel needs to be moved in same direction.
+	 * 
+	 * @param distance distance to move as integer
+	 * @param fly_pos  fly value of another wheel whose distance 
+	 * 		  needs to be calculated
+	 * @return distance in units for other wheel to be moved in cascade
+	 * 		   fashion.
+	 */
 	public int turnAntiClockwise(int distance, int fly_pos) {
 		int new_distance = 0;
 		int start_pos = getPin();
@@ -98,22 +106,55 @@ public class Wheel {
 		antiClockwiseMove(distance);
 		return new_distance;
 	}
-	
-	private int cyclicDifference(int a, int b) {
-		int c = b - a;
-		return c < 0 ? 20 + c : c;
+
+	private void clockwiseMove(int delta) {
+		delta = delta % 20;
+		pin = pin + delta;
+		fly = fly + delta;
+		notch = notch + delta;
+		pin = pin < 20 ? pin : pin - 20;
+		fly = fly < 20 ? fly : fly - 20;
+		notch = notch < 20 ? notch : notch - 20;
 	}
 	
+	private void antiClockwiseMove(int delta) {
+		delta = delta % 20;
+		pin = pin - delta;
+		fly = fly - delta;
+		notch = notch - delta;
+		pin = pin < 0 ? 20 + pin : pin;
+		fly = fly < 0 ? 20 + fly : fly;
+		notch = notch < 0 ? 20 + notch : notch;
+	}
+	
+	/*
+	 *  calculates the difference between two points on a
+	 *  circular scale in clock wise direction.
+	 */
+	private int clockwiseDifference(int start, int end) {
+		int d = end - start;
+		return d < 0 ? WHEEL_SIZE + d : d;
+	}
+	
+	/*
+	 * calculates the difference between two points on a 
+	 * circular scale in anti-clock wise direction.
+	 */
 	private int antiClockwiseDifference(int a, int b) {
-		int c = b - a;
-		return c < 0 ?  -c : 20 - c;
-	} 
+		return WHEEL_SIZE - clockwiseDifference(a, b);
+	}
+
+	/**
+	 * returns the string representation of the state of the wheel 
+	 * in "pin:fly:notch" pattern
+	 */
+	public String toString() {
+		return pin + ":" + fly + ":" + notch;
+	}
+	
 	
 	private int pin;		/* Drive pin location in units */
 	private int notch;      /* Notch location in units */
 	private int fly;   		/* Wheel fly location in units */
 	
-	public String toString() {
-		return "pin : " + pin + "fly : " + fly + "notch : " + notch;
-	}
 }
