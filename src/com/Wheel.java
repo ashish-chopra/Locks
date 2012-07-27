@@ -108,23 +108,23 @@ public class Wheel {
 	}
 
 	private void clockwiseMove(int delta) {
-		delta = delta % 20;
+		delta = delta % WHEEL_SIZE;
 		pin = pin + delta;
 		fly = fly + delta;
 		notch = notch + delta;
-		pin = pin < 20 ? pin : pin - 20;
-		fly = fly < 20 ? fly : fly - 20;
-		notch = notch < 20 ? notch : notch - 20;
+		pin = pin < WHEEL_SIZE ? pin : pin - WHEEL_SIZE;
+		fly = fly < WHEEL_SIZE ? fly : fly - WHEEL_SIZE;
+		notch = notch < WHEEL_SIZE ? notch : notch - WHEEL_SIZE;
 	}
 	
 	private void antiClockwiseMove(int delta) {
-		delta = delta % 20;
+		delta = delta % WHEEL_SIZE;
 		pin = pin - delta;
 		fly = fly - delta;
 		notch = notch - delta;
-		pin = pin < 0 ? 20 + pin : pin;
-		fly = fly < 0 ? 20 + fly : fly;
-		notch = notch < 0 ? 20 + notch : notch;
+		pin = pin < 0 ? WHEEL_SIZE + pin : pin;
+		fly = fly < 0 ? WHEEL_SIZE + fly : fly;
+		notch = notch < 0 ? WHEEL_SIZE + notch : notch;
 	}
 	
 	/*
@@ -154,7 +154,7 @@ public class Wheel {
 	
 	
 	private int pin;		/* Drive pin location in units */
-	private int notch;      /* Notch location in units */
+	private int notch;              /* Notch location in units */
 	private int fly;   		/* Wheel fly location in units */
 	
 }
