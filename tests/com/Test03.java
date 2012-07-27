@@ -5,7 +5,7 @@
  * 
  */
 
-package tests;
+package com;
  import com.Lock;
  public class Test03 implements Test {
 

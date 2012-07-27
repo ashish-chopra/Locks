@@ -4,7 +4,7 @@
  * Date - 7 March 2010
  * 
  */
-package tests;
+package com;
  import com.Lock;
  public class Test02 implements Test {
 

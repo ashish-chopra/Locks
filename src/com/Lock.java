@@ -3,7 +3,7 @@
  *  Date: 12 July, 2012
  *  Author: Ashish Chopra
  *  ----------------------------------------------------
- *  This code is the solution to design task 02 given in the class.
+ *  
  */
 
 package com;
