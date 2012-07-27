@@ -33,6 +33,7 @@ public class Wheel {
 	/**
 	 * gets the current position of the notch between 0-19.
 	 * @return notch value as integer 
+	 * 
 	 */
 	public int getNotch() {
 		return notch;
