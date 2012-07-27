@@ -9,7 +9,6 @@ package com;
  *   
  */
 
-
 import com.Lock;
 public class LockTest {
 
